@@ -1,0 +1,28 @@
+# Local settings and credentials
+.env
+.env.*
+!.env.example
+*.local
+secrets/
+.secrets/
+*secret*.json
+*credentials*.json
+*.pem
+*.key
+
+# Python environments and generated files
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+logs/
+*.log

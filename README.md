@@ -12,7 +12,8 @@ AI adviser, trading simulator, database, dashboard, or cost tracker.
 
 Only `paper` mode is supported. `live` and every other mode are refused before
 startup. There is no switch or approval file that enables real trading. No API
-keys, exchange accounts, wallets, or private keys are needed.
+keys, exchange accounts, wallets, or private keys are needed for the default
+startup. The optional Telegram interface needs a Telegram bot token.
 
 ## Setup
 
@@ -39,7 +40,8 @@ python -m unittest discover -s tests -v
 ```
 
 The tests cover startup, balance checks, mode refusal, `.env` settings,
-environment priority, and keeping secrets out of output.
+environment priority, and keeping secrets out of output. Telegram tests use
+fake responses and do not send real messages.
 
 ## Settings
 
@@ -81,3 +83,53 @@ Do not display `.env` or dump your environment on screen.
 
 Suggested narration: “Day 1 is the foundation. It starts with pretend money
 and makes no trades. If I ask for live mode, it refuses to start.”
+
+## Talk to LeanEdge on Telegram
+
+The optional bot supports simple commands in your private chat:
+
+| Command | Reply |
+| --- | --- |
+| `/start` | Introduces LeanEdge and shows its paper settings |
+| `/status` | Shows paper mode and the pretend starting balance |
+| `/help` | Lists the available commands |
+
+It does not provide AI chat, place trades, or change settings. `/live` is
+refused. Only the configured user's direct messages get a reply; other users
+and group chats are ignored. Message text and tokens are never logged.
+
+1. In Telegram, open the official **@BotFather** account and send `/newbot`.
+   Follow its steps to create your bot. Keep the token it gives you private.
+2. Get your numeric Telegram user ID. You can use Telegram's official data
+   export in Telegram Desktop: Settings → Advanced → Export Telegram data;
+   choose JSON. In `result.json`, look for `personal_information.user_id`.
+   Keep that export local and outside this repository.
+3. Add these two settings to your ignored `.env` file using a text editor.
+   Keep existing settings. Replace the placeholders privately:
+
+   ```dotenv
+   LEANEDGE_TELEGRAM_BOT_TOKEN=your-private-bot-token
+   LEANEDGE_TELEGRAM_USER_ID=your-numeric-user-id
+   ```
+
+4. From the repository folder, with the virtual environment active, run:
+
+   ```sh
+   python -m leanedge --telegram
+   ```
+
+5. Open the bot you created in Telegram and send `/start`, then `/status`.
+   Keep the app running while you chat. Press Ctrl+C to stop it.
+
+Telegram mode needs Internet access to `api.telegram.org`. It uses long polling,
+so you do not need a public server address. Run only one copy per token. If
+Telegram reports a polling conflict, stop the other copy; a bot previously
+configured with a webhook also needs that webhook removed before polling.
+Connection errors use safe messages without revealing the token. Temporary
+polling connection failures retry; startup errors and access errors stop the
+app. If a reply cannot be delivered, polling may retry that command. Restarting
+can process pending messages again. All replies are read-only.
+
+The code and offline tests can run without Telegram credentials. A real
+Telegram connection still needs your own token and user ID. Do not send the
+token in chat, put it in Git, or show it in your video.

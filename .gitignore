@@ -26,3 +26,15 @@ build/
 dist/
 logs/
 *.log
+
+# Persistent local experiment data and generated reports
+*.db
+*.db-*
+*.sqlite*
+*.writer.lock
+*.halt
+reports/
+backups/
+work/
+soak-results/
+*.zip

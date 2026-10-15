@@ -1,0 +1,83 @@
+# Ordinary settings. Risk settings belong in risk.toml; secrets belong in .env.
+mode = "paper"
+starting_balance = "1000"
+# Choose and date assets BEFORE initialization. Never select using future results.
+# No pool is recommended by the project. An empty allowlist is safe by default.
+# sol_pool = "<verified pool where wrapped SOL is the BASE token>"
+# [[assets]]
+# token = "<Solana mint, 32-44 base58 characters>"
+# pool = "<pool where this mint is the BASE token>"
+# selected_at = "2026-10-15T00:00:00+00:00"
+# pool_type = "unverified"  # No verified live LP-protection decoder is included.
+
+[strategy]
+bar_seconds = 300
+warmup_bars = 24
+momentum_bars = 12
+momentum_min = "0.03"
+pullback_bars = 3
+pullback_min = "0.01"
+pullback_max = "0.04"
+random_seeds = [17, 29, 43, 71, 101]
+random_probability = "0.05"
+
+[data]
+poll_seconds = 30
+fresh_seconds = 120
+safety_fresh_seconds = 120
+disagreement_fraction = "0.05"
+timeout_seconds = 8
+retries = 2
+cache_seconds = 10
+max_holder_pages = 5
+
+[fill]
+version = "pessimistic-v1"
+failure_probability = "0.10"
+latency_multiplier = "1.5"
+delay_seconds = "2"
+fee_fraction = "0.003"
+spread_fraction = "0.002"
+slippage_fraction = "0.003"
+adverse_fraction = "0.002"
+failed_fee_usd = "0.01"
+depth_fraction = "0.02"
+max_impact = "0.05"
+seed = 42
+
+[ai]
+enabled = false
+fallback = "block"
+model = "deepseek-flash"
+daily_cap = "0.50"
+# Verified official PEAK prices in USD per million tokens; not a perpetual quote.
+input_per_million = "0.30"
+cached_per_million = "0.006"
+output_per_million = "1.20"
+pricing_verified = "2026-10-15T00:00:00+00:00"
+pricing_max_days = 7
+max_output_tokens = 128
+input_token_bound = 4096
+retries = 1
+
+[costs]
+monthly_budget = "50"
+hosting_monthly = "0"
+# Explicit estimates, not measured bills. Zero assumes an existing free allowance.
+# Set a conservative per-request amount before enabling paid services.
+rpc_request_usd = "0"
+other_request_usd = "0"
+monthly_estimate = "50"
+
+[evaluation]
+min_days = 30
+min_trades = 100
+max_drawdown = "0.20"
+coverage_min = "0.95"
+max_gap_seconds = 120
+block_days = 5
+bootstrap_runs = 2000
+seed = 977
+regime_trend = "0.02"
+regime_down = "0.02"
+regime_window_days = 7

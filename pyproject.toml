@@ -4,11 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "leanedge"
-version = "0.1.0"
-description = "Day 1 foundation for a paper-only trading project"
+version = "1.0.0"
+description = "Paper-only market recorder and trading experiment"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["python-dotenv>=1.2.1,<2"]
+dependencies = ["python-dotenv>=1.2.1,<2", "httpx>=0.27,<1"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+leanedge = "leanedge.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

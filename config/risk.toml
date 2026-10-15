@@ -1,0 +1,14 @@
+# Human-controlled risk. No bot component edits this file.
+# Changes require a new experiment ID and a new database.
+position_fraction = "0.02"
+max_positions = 3
+entries_per_day = 10
+daily_loss = "0.05"
+weekly_loss = "0.10"
+min_liquidity = "50000"
+min_age_hours = "6"
+max_top10 = "0.20"
+cooldown_minutes = 60
+stop_loss = "0.05"
+trailing_stop = "0.05"
+holding_hours = "6"

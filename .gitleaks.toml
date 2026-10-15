@@ -1,0 +1,11 @@
+title = "LeanEdge secret scan"
+[extend]
+useDefault = true
+[[rules]]
+id = "leanedge-secret-assignment"
+description = "Nonempty LeanEdge provider credential"
+regex = '''(?i)LEANEDGE_(?:HELIUS_API_KEY|JUPITER_API_KEY|DEEPSEEK_API_KEY|TELEGRAM_BOT_TOKEN)\s*=\s*["']?([a-z0-9_:\-]{16,})'''
+secretGroup = 1
+[[allowlists]]
+description = "Deliberately fake test values"
+paths = ['''tests/''', '''\.env\.example$''']

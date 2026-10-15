@@ -1,1 +1,2 @@
-"""LeanEdge's paper-only project foundation."""
+"""LeanEdge: a paper-only, auditable trading experiment."""
+__version__='1.0.0'
